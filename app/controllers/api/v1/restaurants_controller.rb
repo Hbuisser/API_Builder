@@ -4,13 +4,20 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   #   @restaurant = Restaurant.find(params[:id])
   #   authorize @restaurant
   # end
-  before_action :set_restaurant, only: [ :show ]
+  before_action :set_restaurant, only: [ :show, :update ]
 
   def index
-    @restaurants = policy_scope(Restaurant)
+    if params[:search].blank?
+      @restaurants = policy_scope(Restaurant)
+    else
+      @restaurants = policy_scope(Restaurant).where('name ILIKE ?',"%#{params[:search]}%")
+    end
   end
 
   def show
+  end
+
+  def update
   end
 
   private
