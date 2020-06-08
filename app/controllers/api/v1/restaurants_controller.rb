@@ -22,6 +22,22 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
     end
   end
 
+  def create
+    @restaurant = Restaurant.new(restaurant_params)
+    @restaurant.user = current_user
+    authorize @restaurant, :create
+    if @restaurant.save
+      render :show, status: :created
+    else
+      render_error
+    end
+  end
+
+  def destroy
+    @restaurant.destroy
+    head :no_content
+  end
+
   private
 
   def set_restaurant
