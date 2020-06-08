@@ -1,9 +1,5 @@
 class Api::V1::RestaurantsController < Api::V1::BaseController
 
-  # def show
-  #   @restaurant = Restaurant.find(params[:id])
-  #   authorize @restaurant
-  # end
   before_action :set_restaurant, only: [ :show, :update ]
 
   def index
