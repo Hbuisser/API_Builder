@@ -15,6 +15,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
   end
 
   def show
+    #@restaurant = Restaurant.find(params[:id])
   end
 
   def update
@@ -29,7 +30,7 @@ class Api::V1::RestaurantsController < Api::V1::BaseController
 
   def set_restaurant
     @restaurant = Restaurant.find(params[:id])
-    authorize @restaurant  # For Pundit
+    authorize @restaurant, :show # For Pundit
   end
   def restaurant_params
     params.require(:restaurant).permit(:name, :address)
